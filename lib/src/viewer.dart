@@ -39,7 +39,6 @@ class _PDFViewerState extends State<PDFViewer> {
   PDFPage _page;
   List<PDFPage> _pages = List();
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -68,7 +67,7 @@ class _PDFViewerState extends State<PDFViewer> {
       _oldPage = _pageNumber;
       _page = await widget.document.get(page: _pageNumber);
     }
-    if(this.mounted) {
+    if (this.mounted) {
       setState(() => _isLoading = false);
     }
   }
@@ -103,26 +102,25 @@ class _PDFViewerState extends State<PDFViewer> {
   }
 
   Widget _close() {
-    Widget child = GestureDetector(
-        onTap: _pickPage,
-        child:
-        GestureDetector(
-          onTap: widget.onTap,
-          child:
-          Container(
-              padding:
-                  EdgeInsets.only(top: 4.0, left: 16.0, bottom: 4.0, right: 16.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: widget.indicatorBackground),
-              child:
-              Text("X",
-                  style: TextStyle(
-                      color: widget.indicatorText,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w400))))
-        );
-        return Positioned(top: 20, right: 20, child: child);
+    Widget child = SafeArea(
+      child: GestureDetector(
+          onTap: _pickPage,
+          child: GestureDetector(
+              onTap: widget.onTap,
+              child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4.0, left: 16.0, bottom: 4.0, right: 16.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: widget.indicatorBackground),
+                  child: Text("X",
+                      style: TextStyle(
+                          color: widget.indicatorText,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400))))),
+    );
+
+    return Positioned(top: 20, right: 20, child: child);
   }
 
   _pickPage() {
@@ -147,6 +145,7 @@ class _PDFViewerState extends State<PDFViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
           _isLoading ? Center(child: CircularProgressIndicator()) : _page,
