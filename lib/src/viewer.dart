@@ -120,7 +120,7 @@ class _PDFViewerState extends State<PDFViewer> {
                           fontWeight: FontWeight.w400))))),
     );
 
-    return Positioned(top: 20, right: 20, child: child);
+    return Positioned(top: 40, right: 20, child: child);
   }
 
   _pickPage() {
